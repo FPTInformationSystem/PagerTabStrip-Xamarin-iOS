@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Foundation;
 using UIKit;
 
@@ -94,10 +95,56 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 		public StyleDefinition Style { get; set; } = new StyleDefinition();
 	}
 
-	public class ButtonBarPagerTabStripViewController
+	[Register("ButtonBarPagerTabStripViewController")]
+	public class ButtonBarPagerTabStripViewController : PagerTabStripViewController, PagerTabStripDataSource, PagerTabStripIsProgressiveDelegate, IUICollectionViewDelegate, IUICollectionViewDataSource
 	{
+
+		#region PROPERTIES
+
+		public ButtonBarPagerTabStripSettings Settings { get; set;}
+
+		public ButtonBarItemSpec ButtonBarItemSpec { get; set;}
+
+		public Action<ButtonBarViewCell, ButtonBarViewCell, bool> ChangeCurrentIndex { get; set;}
+
+		public Action<ButtonBarViewCell, ButtonBarViewCell, nfloat, bool, bool> ChangeCurrentIndexProgressive { get; set;}
+
+		[Outlet]
+		ButtonBarView amountButton { get; set; }
+
+		#endregion
+
+		#region CONSTRUCTORS
+
 		public ButtonBarPagerTabStripViewController()
 		{
+		}
+
+		#endregion
+
+		public UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			throw new NotImplementedException();
+		}
+
+		public nint GetItemsCount(UICollectionView collectionView, nint section)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override IList<UIViewController> GetViewControllers(PagerTabStripViewController pagerTabStripController)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdateIndicator(PagerTabStripViewController viewController, int fromIndex, int toIndex)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void UpdateIndicator(PagerTabStripViewController viewController, int fromIndex, int toIndex, nfloat progressPercentage, bool indexWasChanged)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

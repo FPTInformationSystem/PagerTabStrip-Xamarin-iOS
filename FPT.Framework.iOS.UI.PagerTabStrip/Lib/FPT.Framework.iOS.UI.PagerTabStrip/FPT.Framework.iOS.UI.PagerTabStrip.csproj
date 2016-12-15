@@ -53,6 +53,7 @@
     <Folder Include="Resources\" />
     <Folder Include="Sources\" />
     <Folder Include="Sources\Controllers\" />
+    <Folder Include="Sources\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,6 +62,15 @@
     <Compile Include="Sources\SwipeDirection.cs" />
     <Compile Include="Sources\PagerTabStripError.cs" />
     <Compile Include="Sources\Controllers\ButtonBarPagerTabStripViewController.cs" />
+    <Compile Include="Sources\Controllers\PagerTabStripViewController.cs" />
+    <Compile Include="Sources\Views\ButtonBarViewCell.cs" />
+    <Compile Include="Sources\Views\ButtonBarViewCell.designer.cs">
+      <DependentUpon>ButtonBarViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sources\Controllers\ButtonBarView.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Sources\Views\ButtonBarViewCell.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
