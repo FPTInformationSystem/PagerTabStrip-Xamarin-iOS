@@ -15,12 +15,12 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 
 	public interface PagerTabStripDelegate
 	{
-		void UpdateIndicator(PagerTabStripViewController viewController, int fromIndex, int toIndex);
+		void UpdateIndicator(PagerTabStripViewController viewController, nint fromIndex, nint toIndex);
 	}
 
 	public interface PagerTabStripIsProgressiveDelegate : PagerTabStripDelegate
 	{
-		void UpdateIndicator(PagerTabStripViewController viewController, int fromIndex, int toIndex, nfloat progressPercentage, bool indexWasChanged);
+		void UpdateIndicator(PagerTabStripViewController viewController, nint fromIndex, nint toIndex, nfloat progressPercentage, bool indexWasChanged);
 	}
 
 	public interface PagerTabStripDataSource
@@ -28,11 +28,11 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 		IList<UIViewController> GetViewControllers(PagerTabStripViewController pagerTabStripController);
 	}
 
-	public class PagerTabStripViewController : UIViewController, IUIScrollViewDelegate
+	public partial class PagerTabStripViewController : UIViewController, IUIScrollViewDelegate
 	{
 
 		#region PROPERTIES
-
+		[Outlet]
 		public UIScrollView ContainerView { get; set;}
 
 		public PagerTabStripDelegate Delegate { get; set;}
@@ -41,7 +41,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 		public PagerTabStripBehaviour PagerBehaviour { get; set; } = PagerTabStripBehaviour.Progressive(true, true);
 
 		public IList<UIViewController> ViewControllers { get; private set; } = new List<UIViewController>();
-		public int CurrentIndex { get; set; } = 0;
+		public nint CurrentIndex { get; set; } = 0;
 
 		public nfloat PageWidth
 		{
@@ -85,6 +85,14 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 
 		#region CONSTRUCTORS
 
+		protected PagerTabStripViewController(string nibNameOrNil, NSBundle nibBundleOrNil) : base(nibNameOrNil, nibBundleOrNil) { }
+
+		protected PagerTabStripViewController(NSCoder coder) : base(coder) { }
+
+		protected PagerTabStripViewController(IntPtr handle) : base(handle)
+		{
+		}
+
 		public PagerTabStripViewController()
 		{
 		}
@@ -121,7 +129,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 		public override void ViewWillAppear(bool animated)
 		{
 			base.ViewWillAppear(animated);
-			mIsViewAppearing = true;
+			IsViewAppearing = true;
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -129,7 +137,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 			base.ViewDidAppear(animated);
 			mLastSize = ContainerView.Bounds.Size;
 			UpdateIfNeeded();
-			mIsViewAppearing = false;
+			IsViewAppearing = false;
 		}
 
 		public override void ViewDidLayoutSubviews()
@@ -138,7 +146,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 			UpdateIfNeeded();
 		}
 
-		public void MoveToViewController(int index, bool animated = true)
+		public void MoveToViewController(nint index, bool animated = true)
 		{
 			if (!IsViewLoaded || View.Window == null)
 			{
@@ -148,18 +156,24 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 			if (animated && PagerBehaviour.SkipIntermediateViewControllers && Math.Abs(CurrentIndex - index) > 1)
 			{
 				var tmpViewControllers = ViewControllers;
-				var currentChildVC = ViewControllers[CurrentIndex];
+				var currentChildVC = ViewControllers[(int)CurrentIndex];
 				var fromIndex = CurrentIndex < index ? index - 1 : index + 1;
-				var fromChildVC = ViewControllers[fromIndex];
-				tmpViewControllers[CurrentIndex] = currentChildVC;
+				var fromChildVC = ViewControllers[(int)fromIndex];
+				tmpViewControllers[(int)CurrentIndex] = currentChildVC;
 				mPagerTabStripChildViewControllersForScrolling = tmpViewControllers;
 				ContainerView.SetContentOffset(new CGPoint(PageOffsetForChild(fromIndex), 0), false);
-				(NavigationController.View ?? View).UserInteractionEnabled = !animated;
+				if (NavigationController != null)
+				{
+					(NavigationController.View ?? View).UserInteractionEnabled = !animated;
+				}
 				ContainerView.SetContentOffset(new CGPoint(PageOffsetForChild(index), 0), true);
 			}
 			else
 			{
-				(NavigationController.View ?? View).UserInteractionEnabled = !animated;
+				if (NavigationController != null)
+				{
+					(NavigationController.View ?? View).UserInteractionEnabled = !animated;
+				}
 				ContainerView.SetContentOffset(new CGPoint(PageOffsetForChild(index), 0), animated);
 			}
 		}
@@ -197,7 +211,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 			return CurrentIndex != index && ViewControllers.Count > index;
 		}
 
-		public nfloat PageOffsetForChild(int index)
+		public nfloat PageOffsetForChild(nint index)
 		{
 			return index * ContainerView.Bounds.Width;
 		}
@@ -286,9 +300,34 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 					}
 				}
 			}
+
+			var oldCurrentIndex = CurrentIndex;
+			var virtualPage = VirtualPageFor(ContainerView.ContentOffset.X);
+			var newCurrentIndex = PageFor(virtualPage);
+			CurrentIndex = newCurrentIndex;
+			var changeCurrentIndex = newCurrentIndex != oldCurrentIndex;
+
+			var progressiveDelegate = this as PagerTabStripIsProgressiveDelegate;
+			if (progressiveDelegate != null && PagerBehaviour.ProgressiveIndicator)
+			{
+				var t = ProgressiveIndicatorData(virtualPage);
+				progressiveDelegate.UpdateIndicator(
+					viewController: this,
+					fromIndex: t.Item1,
+					toIndex: t.Item2,
+					progressPercentage: t.Item3,
+					indexWasChanged: changeCurrentIndex);
+			}
+			else
+			{
+				if (Delegate != null)
+				{
+					Delegate.UpdateIndicator(this, NMath.Min(oldCurrentIndex, pagerViewControllers.Count - 1), newCurrentIndex);
+				}
+			}
 		}
 
-		public void ReloadPagerTabStripView()
+		public virtual void ReloadPagerTabStripView()
 		{
 			if (!IsViewLoaded) return;
 			foreach (var childController in ViewControllers)
@@ -339,7 +378,10 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 			if (ContainerView == scrollView)
 			{
 				mPagerTabStripChildViewControllersForScrolling = null;
-				(NavigationController.View ?? View).UserInteractionEnabled = true;
+				if (NavigationController != null)
+				{
+					(NavigationController.View ?? View).UserInteractionEnabled = true;
+				}
 				UpdateContent();
 			}
 		}
@@ -348,7 +390,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 
 		#region PRIVATE MEMBERS
 
-		private Tuple<int, int, nfloat> ProgressiveIndicatorData(int virtualPage)
+		private Tuple<nint, nint, nfloat> ProgressiveIndicatorData(int virtualPage)
 		{
 			var count = ViewControllers.Count;
 			var fromIndex = CurrentIndex;
@@ -366,7 +408,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 				{
 					if (this.ScrollPercentage >= 0.5f)
 					{
-						fromIndex = Math.Max(toIndex -1, 0);
+						fromIndex = NMath.Max(toIndex -1, 0);
 					}
 					else
 					{
@@ -385,7 +427,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 				{
 					if (this.ScrollPercentage > 0.5)
 					{
-						fromIndex = Math.Min(toIndex + 1, count - 1);
+						fromIndex = NMath.Min(toIndex + 1, count - 1);
 					}
 					else
 					{
@@ -395,7 +437,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 			}
 			var scrollPercentage = PagerBehaviour.ElasticIndicatorLimit ?
 												 this.ScrollPercentage : ((toIndex < 0 || toIndex >= count) ? 0.0f : this.ScrollPercentage);
-			return new Tuple<int, int, nfloat>(fromIndex, toIndex, scrollPercentage);
+			return new Tuple<nint, nint, nfloat>(fromIndex, toIndex, scrollPercentage);
 		}
 
 		private void ReloadViewControllers()
@@ -414,8 +456,8 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 		private nfloat mLastContentOffset = 0f;
 		private int mPageBeforeRotate = 0;
 		private CGSize mLastSize = new CGSize(0, 0);
-		private bool mIsViewRotating = false;
-		private bool mIsViewAppearing = false;
+		internal bool IsViewRotating { get; set;} = false;
+		internal bool IsViewAppearing {get; set;} = false;
 
 	    #endregion
 	}

@@ -20,7 +20,8 @@ namespace Demo
 		{
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
-
+			UITabBar.Appearance.TintColor = new UIColor(red: 0.027f, green: 0.725f, blue: 0.608f, alpha:1);
+			UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
 			return true;
 		}
 

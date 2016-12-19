@@ -22,13 +22,18 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 
 		#region PROPERTIES
 
+		private UIView mSelectedBar = null;
 		public UIView SelectedBar
 		{
 			get
 			{
-				var bar = new UIView(new CGRect(0, this.Frame.Size.Height - this.SelectedBarHeight, 0, this.SelectedBarHeight));
-				bar.Layer.ZPosition = 9999;
-				return bar;
+				if (mSelectedBar == null)
+				{
+					var bar = new UIView(new CGRect(0, this.Frame.Size.Height - this.SelectedBarHeight, 0, this.SelectedBarHeight));
+					bar.Layer.ZPosition = 9999;
+					mSelectedBar = bar;
+				}
+				return mSelectedBar;
 			}
 		}
 
@@ -48,7 +53,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 
 		public SelectedBarAlignment SelectedBarAlignment { get; set; } = SelectedBarAlignment.Center;
 
-		public int SelectedIndex { get; set; } = 0;
+		public nint SelectedIndex { get; set; } = 0;
 
 
 		#endregion
@@ -74,19 +79,85 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 
 		#region FUNCTIONS
 
-		public void MoveTo(int index, bool animated, SwipeDirection swipeDirection, PagerScroll pagerScroll)
+		public void MoveTo(nint index, bool animated, SwipeDirection swipeDirection, PagerScroll pagerScroll)
 		{
 			SelectedIndex = index;
 			UpdateSelectedBarPosition(animated, swipeDirection, pagerScroll);
 		}
 
-		public void MoveTo(int fromIndex, bool toIndex, nfloat progressPercentage, PagerScroll pagerScroll)
+		public void Move(nint fromIndex, nint toIndex, nfloat progressPercentage, PagerScroll pagerScroll)
 		{
+			SelectedIndex = progressPercentage > 0.5f ? toIndex : fromIndex;
+
+			var fromFrame = GetLayoutAttributesForItem(NSIndexPath.FromItemSection(fromIndex, 0)).Frame;
+			var numberOfItems = DataSource.GetItemsCount(this, 0);
+
+			CGRect toFrame;
+
+			if (toIndex < 0 || toIndex > numberOfItems - 1)
+			{
+				if (toIndex < 0)
+				{
+					var cellAtts = GetLayoutAttributesForItem(NSIndexPath.FromItemSection(0, 0));
+					toFrame = cellAtts.Frame;
+					toFrame.Offset(-cellAtts.Frame.Width, 0);
+				}
+				else
+				{
+					var cellAtts = GetLayoutAttributesForItem(NSIndexPath.FromItemSection(numberOfItems - 1, 0));
+					toFrame = cellAtts.Frame;
+					toFrame.Offset(-cellAtts.Frame.Width, 0);
+				}
+			}
+			else
+			{
+				toFrame = GetLayoutAttributesForItem(NSIndexPath.FromItemSection(toIndex, 0)).Frame;
+			}
+
+			var targetFrame = fromFrame;
+			targetFrame.Height = SelectedBar.Frame.Height;
+			targetFrame.Width += (toFrame.Size.Width - fromFrame.Size.Width) * progressPercentage;
+			targetFrame.X += (toFrame.X - fromFrame.X) * progressPercentage;
+
+			SelectedBar.Frame = new CGRect(targetFrame.X, SelectedBar.Frame.Y, targetFrame.Width, SelectedBar.Frame.Height);
+
+			nfloat targetContentOffset = 0.0f;
+			if (ContentSize.Width > Frame.Width)
+			{
+				var toContentOffset = ContentOffsetForCell(toFrame, toIndex);
+				var fromContentOffset = ContentOffsetForCell(fromFrame, fromIndex);
+
+				targetContentOffset = fromContentOffset + ((toContentOffset - fromContentOffset) * progressPercentage);
+			}
+
+			var animated = Math.Abs(ContentOffset.X - targetContentOffset) > 30 || (fromIndex == toIndex);
+			SetContentOffset(new CGPoint(targetContentOffset, 0), animated);
 		}
 
 		private void UpdateSelectedBarPosition(bool animated, SwipeDirection swipeDirection, PagerScroll pagerScroll)
 		{
-			
+			var selectedBarFrame = SelectedBar.Frame;
+
+			var selectedCellIndexPath = NSIndexPath.FromItemSection(SelectedIndex, 0);
+			var attributes = GetLayoutAttributesForItem(selectedCellIndexPath);
+			var selectedCellFrame = attributes.Frame;
+
+			UpdateContentOffset(animated, pagerScroll, selectedCellFrame, (selectedCellIndexPath as NSIndexPath).Row);
+
+			selectedBarFrame.Width = selectedCellFrame.Width;
+			selectedBarFrame.X = selectedCellFrame.X;
+
+			if (animated)
+			{
+				UIView.Animate(duration: 0.3, animation: () =>
+				{
+					this.SelectedBar.Frame = selectedBarFrame;
+				});
+			}
+			else
+			{
+				SelectedBar.Frame = selectedBarFrame;
+			}
 		}
 
 		#endregion
@@ -102,7 +173,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 			}
 		}
 
-		private nfloat ContentOffsetForCell(CGRect cellFrame, int index)
+		private nfloat ContentOffsetForCell(CGRect cellFrame, nint index)
 		{
 			var sectionInset = (CollectionViewLayout as UICollectionViewFlowLayout).SectionInset;
 			nfloat alignmentOffset = 0.0f;

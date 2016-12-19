@@ -9,28 +9,11 @@ using System.CodeDom.Compiler;
 
 namespace FPT.Framework.iOS.UI.PagerTabStrip
 {
-	[Register ("ButtonBarViewCell")]
-	partial class ButtonBarViewCell
+	partial class BarView
 	{
-
-		[Outlet]
-		public UIKit.UIImageView ImageView { get; set; }
-
-		[Outlet]
-		public UIKit.UILabel TitleLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (TitleLabel != null) {
-				TitleLabel.Dispose ();
-				TitleLabel = null;
-			}
-
-			if (ImageView != null)
-			{
-				ImageView.Dispose();
-				ImageView = null;
-			}
 		}
 	}
 }

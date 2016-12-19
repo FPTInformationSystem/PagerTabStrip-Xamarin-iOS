@@ -95,10 +95,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="ChildControllers\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="Helpers\PostCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -110,6 +113,25 @@
     <Compile Include="ViewController.cs" />
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReloadExampleViewController.cs" />
+    <Compile Include="ReloadExampleViewController.designer.cs">
+      <DependentUpon>ReloadExampleViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BarExampleViewController.cs" />
+    <Compile Include="BarExampleViewController.designer.cs">
+      <DependentUpon>BarExampleViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChildControllers\ChildExampleViewController.cs" />
+    <Compile Include="ChildControllers\TableChildExampleViewController.cs" />
+    <Compile Include="Helpers\PostCell.cs" />
+    <Compile Include="Helpers\PostCell.designer.cs">
+      <DependentUpon>PostCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DataProvider.cs" />
+    <Compile Include="ButtonBarExampleViewController.cs" />
+    <Compile Include="ButtonBarExampleViewController.designer.cs">
+      <DependentUpon>ButtonBarExampleViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
