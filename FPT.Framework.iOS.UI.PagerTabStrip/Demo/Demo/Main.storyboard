@@ -339,6 +339,7 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5b2-9V-bKw">
                                 <rect key="frame" x="0.0" y="43" width="375" height="510"/>
+                                <color key="backgroundColor" red="1" green="0.61042430510004442" blue="0.22853832435903365" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </scrollView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aF4-Rm-sTg" customClass="ButtonBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>

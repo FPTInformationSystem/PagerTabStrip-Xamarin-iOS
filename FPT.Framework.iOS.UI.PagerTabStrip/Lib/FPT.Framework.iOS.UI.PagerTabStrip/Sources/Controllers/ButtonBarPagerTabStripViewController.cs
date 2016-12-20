@@ -421,8 +421,6 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 			return cell;
 		}
 
-
-
 		public override IList<UIViewController> GetViewControllers(PagerTabStripViewController pagerTabStripController)
 		{
 			throw new NotImplementedException();
@@ -436,8 +434,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 
 		#region UIScrollViewDelegate
 
-		[Export("scrollViewDidEndScrollingAnimation:")]
-		public void ScrollAnimationEnded(UIScrollView scrollView)
+		public override void ScrollAnimationEnded(UIScrollView scrollView)
 		{
 			base.ScrollAnimationEnded(scrollView);
 

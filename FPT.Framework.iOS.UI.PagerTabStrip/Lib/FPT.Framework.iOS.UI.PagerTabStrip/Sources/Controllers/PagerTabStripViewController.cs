@@ -69,11 +69,11 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 		{
 			get
 			{
-				if (ContainerView.ContentOffset.X > mLastContentOffset)
+				if (ContainerView.ContentOffset.X > LastContentOffset)
 				{
 					return SwipeDirection.Left;
 				}
-				else if (ContainerView.ContentOffset.X < mLastContentOffset)
+				else if (ContainerView.ContentOffset.X < LastContentOffset)
 				{
 					return SwipeDirection.Right;
 				}
@@ -135,7 +135,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 		public override void ViewDidAppear(bool animated)
 		{
 			base.ViewDidAppear(animated);
-			mLastSize = ContainerView.Bounds.Size;
+			LastSize = ContainerView.Bounds.Size;
 			UpdateIfNeeded();
 			IsViewAppearing = false;
 		}
@@ -160,7 +160,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 				var fromIndex = CurrentIndex < index ? index - 1 : index + 1;
 				var fromChildVC = ViewControllers[(int)fromIndex];
 				tmpViewControllers[(int)CurrentIndex] = currentChildVC;
-				mPagerTabStripChildViewControllersForScrolling = tmpViewControllers;
+				PagerTabStripChildViewControllersForScrolling = tmpViewControllers;
 				ContainerView.SetContentOffset(new CGPoint(PageOffsetForChild(fromIndex), 0), false);
 				if (NavigationController != null)
 				{
@@ -200,7 +200,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 
 		public void UpdateIfNeeded()
 		{
-			if (IsViewLoaded && !mLastSize.Equals(ContainerView.Bounds.Size))
+			if (IsViewLoaded && !LastSize.Equals(ContainerView.Bounds.Size))
 			{
 				UpdateContent();
 			}
@@ -256,14 +256,14 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 
 		public void UpdateContent()
 		{
-			if (mLastSize.Width != ContainerView.Bounds.Size.Width)
+			if (LastSize.Width != ContainerView.Bounds.Size.Width)
 			{
-				mLastSize = ContainerView.Bounds.Size;
+				LastSize = ContainerView.Bounds.Size;
 				ContainerView.ContentOffset = new CGPoint(PageOffsetForChild(CurrentIndex), 0);
 			}
-			mLastSize = ContainerView.Bounds.Size;
+			LastSize = ContainerView.Bounds.Size;
 
-			var pagerViewControllers = mPagerTabStripChildViewControllersForScrolling ?? ViewControllers;
+			var pagerViewControllers = PagerTabStripChildViewControllersForScrolling ?? ViewControllers;
 			ContainerView.ContentSize = new CGSize(ContainerView.Bounds.Width * pagerViewControllers.Count, ContainerView.ContentSize.Height);
 
 			for (var index = 0; index < pagerViewControllers.Count; index++)
@@ -367,18 +367,18 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 		{
 			if (ContainerView == scrollView)
 			{
-				mLastPageNumber = PageFor(scrollView.ContentOffset.X);
-				mLastContentOffset = scrollView.ContentOffset.X;
+				LastPageNumber = PageFor(scrollView.ContentOffset.X);
+				LastContentOffset = scrollView.ContentOffset.X;
 			}
 		}
 
 		[Export("scrollViewDidEndScrollingAnimation" +
 		        ":")]
-		public void ScrollAnimationEnded(UIScrollView scrollView)
+		public virtual void ScrollAnimationEnded(UIScrollView scrollView)
 		{
 			if (ContainerView == scrollView)
 			{
-				mPagerTabStripChildViewControllersForScrolling = null;
+				PagerTabStripChildViewControllersForScrolling = null;
 				if (NavigationController != null)
 				{
 					(NavigationController.View ?? View).UserInteractionEnabled = true;
@@ -443,20 +443,20 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 
 		private void ReloadViewControllers()
 		{
-			Debug.Assert(DataSource == null, "dataSource must not be nil");
+			Debug.Assert(DataSource != null, "dataSource must not be nil");
 			ViewControllers = DataSource.GetViewControllers(this);
-			Debug.Assert(ViewControllers.Count == 0, "viewControllers(for:) should provide at least one child view controller");
+			Debug.Assert(ViewControllers.Count > 0, "viewControllers(for:) should provide at least one child view controller");
 			foreach (var viewController in ViewControllers)
 			{
-				Debug.Assert(!(viewController is IndicatorInfoProvider), "Every view controller provided by PagerTabStripDataSource's viewControllers(for:) method must conform to  InfoProvider");
+				Debug.Assert((viewController is IndicatorInfoProvider), "Every view controller provided by PagerTabStripDataSource's viewControllers(for:) method must conform to  InfoProvider");
 			}
 		}
 
-		private IList<UIViewController> mPagerTabStripChildViewControllersForScrolling = new List<UIViewController>();
-		private int mLastPageNumber = 0;
-		private nfloat mLastContentOffset = 0f;
-		private int mPageBeforeRotate = 0;
-		private CGSize mLastSize = new CGSize(0, 0);
+		private IList<UIViewController> PagerTabStripChildViewControllersForScrolling { get; set;}
+		private int LastPageNumber { get; set;} = 0;
+		private nfloat LastContentOffset { get; set;} = 0f;
+		private int PageBeforeRotate { get; set;} = 0;
+		private CGSize LastSize { get; set; } = new CGSize(0, 0);
 		internal bool IsViewRotating { get; set;} = false;
 		internal bool IsViewAppearing {get; set;} = false;
 
