@@ -10,6 +10,28 @@ namespace Demo
 {
 	public partial class ReloadExampleViewController : UIViewController
 	{
+
+		#region PROPERTIES
+
+		private UILabel mBigLabel = null;
+		public UILabel BigLabel
+		{
+			get
+			{
+				if (mBigLabel == null)
+				{
+					mBigLabel = new UILabel();
+					mBigLabel.BackgroundColor = UIColor.Clear;
+					mBigLabel.TextColor = UIColor.White;
+					mBigLabel.Font = UIFont.BoldSystemFontOfSize(20f);
+					mBigLabel.AdjustsFontSizeToFitWidth = true;
+				}
+				return mBigLabel;
+			}
+		}
+
+		#endregion
+
 		public ReloadExampleViewController (IntPtr handle) : base (handle)
 		{
 		}
@@ -19,7 +41,8 @@ namespace Demo
 			base.ViewDidLoad();
 			if (NavigationController != null)
 			{
-				
+				NavigationItem.TitleView = BigLabel;
+				BigLabel.SizeToFit();
 			}
 
 			var pagerViewController = ChildViewControllers.Where(_ => _ is PagerTabStripViewController).FirstOrDefault();
@@ -34,6 +57,12 @@ namespace Demo
 			titleLabel.Text = string.Format("Progressive = {0}  ElasticLimit = {1}",
 			                                pagerTabStripViewController.PagerBehaviour.ProgressiveIndicator.ToString(),
 			                                pagerTabStripViewController.PagerBehaviour.ElasticIndicatorLimit.ToString());
+
+			if (NavigationItem.TitleView != null && NavigationItem.TitleView is UILabel)
+			{
+				((UILabel)NavigationItem.TitleView).Text = titleLabel.Text;
+				NavigationItem.TitleView.SizeToFit();
+			}
 		}
 
 		public override UIStatusBarStyle PreferredStatusBarStyle()

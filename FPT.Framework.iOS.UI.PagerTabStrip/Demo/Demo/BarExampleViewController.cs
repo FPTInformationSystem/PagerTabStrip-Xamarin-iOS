@@ -47,14 +47,10 @@ namespace Demo
 			var child_2 = new ChildExampleViewController(new IndicatorInfo("View"));
 			var child_3 = new TableChildExampleViewController(UITableViewStyle.Grouped, new IndicatorInfo("Table View 2"));
 			var child_4 = new ChildExampleViewController(new IndicatorInfo("View 2"));
-			var child_5 = new TableChildExampleViewController(UITableViewStyle.Plain, new IndicatorInfo("TableView 3"));
-			var child_6 = new ChildExampleViewController(new IndicatorInfo("View 3"));
-			var child_7 = new TableChildExampleViewController(UITableViewStyle.Grouped, new IndicatorInfo("Table View 4"));
-			var child_8 = new ChildExampleViewController(new IndicatorInfo("View 4"));
 
 			var childViewControllers = new List<UIViewController>()
 			{
-				child_1, child_2, child_3, child_4, child_5, child_6, child_7, child_8
+				child_1, child_2, child_3, child_4
 			};
 
 			if (!IsReload)

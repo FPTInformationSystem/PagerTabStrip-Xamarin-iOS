@@ -6,6 +6,7 @@
 //
 using Foundation;
 using System.CodeDom.Compiler;
+using UIKit;
 
 namespace Demo
 {
@@ -13,7 +14,7 @@ namespace Demo
 	partial class ReloadExampleViewController
 	{
 		[Outlet]
-		UIKit.UILabel titleLabel { get; set; }
+		UIKit.UILabel titleLabel { get; set; } = new UILabel();
 		
 		void ReleaseDesignerOutlets ()
 		{

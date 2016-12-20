@@ -372,8 +372,9 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 			}
 		}
 
-		[Export("scrollViewDidEndDragging:willDecelerate:")]
-		public void DraggingEnded(UIScrollView scrollView, bool willDecelerate)
+		[Export("scrollViewDidEndScrollingAnimation" +
+		        ":")]
+		public void ScrollAnimationEnded(UIScrollView scrollView)
 		{
 			if (ContainerView == scrollView)
 			{

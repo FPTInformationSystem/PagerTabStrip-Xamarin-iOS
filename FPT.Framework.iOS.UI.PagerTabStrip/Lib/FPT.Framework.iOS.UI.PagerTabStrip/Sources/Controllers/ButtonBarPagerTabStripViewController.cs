@@ -113,7 +113,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 		public Action<ButtonBarViewCell, ButtonBarViewCell, nfloat, bool, bool> ChangeCurrentIndexProgressive { get; set;}
 
 		[Outlet]
-		ButtonBarView ButtonBarView { get; set; }
+		public ButtonBarView ButtonBarView { get; set; }
 
 		private IList<nfloat> mCachedCellWidths = null;
 		public IList<nfloat> CachedCellWidths
@@ -439,6 +439,8 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 		[Export("scrollViewDidEndScrollingAnimation:")]
 		public void ScrollAnimationEnded(UIScrollView scrollView)
 		{
+			base.ScrollAnimationEnded(scrollView);
+
 			if (scrollView == ContainerView)
 			{
 				ShouldUpdateButtonBarView = true;
