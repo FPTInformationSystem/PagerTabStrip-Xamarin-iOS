@@ -39,8 +39,8 @@ namespace Demo
 
 		internal void ConfigureWithData(NSDictionary data)
 		{
-			var post = data["name"] as NSDictionary;
-			var user = post["text"] as NSDictionary;
+			var post = data["post"] as NSDictionary;
+			var user = post["user"] as NSDictionary;
 
 			if (post != null && user != null)
 			{

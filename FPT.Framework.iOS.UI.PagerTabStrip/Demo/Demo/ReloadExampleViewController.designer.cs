@@ -6,15 +6,17 @@
 //
 using Foundation;
 using System.CodeDom.Compiler;
-using UIKit;
 
 namespace Demo
 {
 	[Register ("ReloadExampleViewController")]
 	partial class ReloadExampleViewController
 	{
-		[Outlet]
-		UIKit.UILabel titleLabel { get; set; } = new UILabel();
+		[Action ("closeTapped:")]
+		partial void closeTapped (Foundation.NSObject sender);
+
+		[Action ("reloadTapped:")]
+		partial void reloadTapped (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{

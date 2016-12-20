@@ -61,6 +61,11 @@ namespace Demo
 			return 1;
 		}
 
+		public override nint RowsInSection(UITableView tableView, nint section)
+		{
+			return (nint)DataProvider.SharedInstance.PostsData.Count;
+		}
+
 		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
 		{
 			var cell = tableView.DequeueReusableCell(CellIdentifier, indexPath) as PostCell;

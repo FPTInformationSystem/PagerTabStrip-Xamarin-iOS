@@ -92,6 +92,27 @@
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Simpsons.xcassets\Contents.json" />
+    <ImageAsset Include="Simpsons.xcassets\Apu_Nahasapeemapetilon.imageset\Apu_Nahasapeemapetilon.png" />
+    <ImageAsset Include="Simpsons.xcassets\Apu_Nahasapeemapetilon.imageset\Contents.json" />
+    <ImageAsset Include="Simpsons.xcassets\Bart_Simpsons.imageset\Bart_Simpsons.png" />
+    <ImageAsset Include="Simpsons.xcassets\Bart_Simpsons.imageset\Contents.json" />
+    <ImageAsset Include="Simpsons.xcassets\Homer_Simpsons.imageset\Contents.json" />
+    <ImageAsset Include="Simpsons.xcassets\Homer_Simpsons.imageset\Homer_Simpsons.png" />
+    <ImageAsset Include="Simpsons.xcassets\Lisa_Simpsons.imageset\Contents.json" />
+    <ImageAsset Include="Simpsons.xcassets\Lisa_Simpsons.imageset\Lisa_Simpsons.png" />
+    <ImageAsset Include="Simpsons.xcassets\Maggie_Simpsons.imageset\Contents.json" />
+    <ImageAsset Include="Simpsons.xcassets\Maggie_Simpsons.imageset\Maggie_Simpsons.png" />
+    <ImageAsset Include="Simpsons.xcassets\Marge_Simpsons.imageset\Contents.json" />
+    <ImageAsset Include="Simpsons.xcassets\Marge_Simpsons.imageset\Marge_Simpsons.png" />
+    <ImageAsset Include="Simpsons.xcassets\Montgomery_Burns.imageset\Contents.json" />
+    <ImageAsset Include="Simpsons.xcassets\Montgomery_Burns.imageset\Montgomery_Burns.png" />
+    <ImageAsset Include="Simpsons.xcassets\Ned_Flanders.imageset\Contents.json" />
+    <ImageAsset Include="Simpsons.xcassets\Ned_Flanders.imageset\Ned_Flanders.png" />
+    <ImageAsset Include="Simpsons.xcassets\Otto_Mann.imageset\Contents.json" />
+    <ImageAsset Include="Simpsons.xcassets\Otto_Mann.imageset\Otto_Mann.png" />
+    <ImageAsset Include="Simpsons.xcassets\default-avatar.imageset\Contents.json" />
+    <ImageAsset Include="Simpsons.xcassets\default-avatar.imageset\default-avatar%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

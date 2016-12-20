@@ -25,7 +25,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m3x-OQ-qqe" id="Q1c-Qo-f6T">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PageTabController Types" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8H-jg-2sU">
@@ -49,7 +49,7 @@
                                         <rect key="frame" x="0.0" y="115" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x8x-hk-Woh" id="Fa6-Oe-VQW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Instagram Example" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWK-XJ-eSm">
@@ -66,7 +66,7 @@
                                         <rect key="frame" x="0.0" y="159" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XBU-fx-dEq" id="BGd-Jz-69E">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Youtube Example" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l2J-TJ-NkU">
@@ -83,7 +83,7 @@
                                         <rect key="frame" x="0.0" y="203" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LWv-XP-enz" id="pyI-tu-ZXL">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Spotify Example" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZHu-9G-Viv">
@@ -144,7 +144,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cPV-L1-4Yk" id="Zmg-iN-uWf">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -201,6 +201,9 @@
                                 <state key="normal" title="Close">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="closeTapped:" destination="rfk-f0-tyF" eventType="touchUpInside" id="EWt-vh-x1v"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Djb-xB-uC4">
                                 <rect key="frame" x="16" y="52" width="343" height="21"/>
@@ -208,13 +211,25 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lzk-1V-YiK">
+                                <rect key="frame" x="303" y="83" width="56" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Reload">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="reloadTapped:" destination="rfk-f0-tyF" eventType="touchUpInside" id="BbN-q8-8Nt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.027450980392156862" green="0.72549019607843135" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Lzk-1V-YiK" secondAttribute="trailing" id="3Tr-T5-Y55"/>
                             <constraint firstItem="rT1-tk-Ers" firstAttribute="top" secondItem="N3G-Ly-qeH" secondAttribute="bottom" constant="62" id="5Iw-gI-RkP"/>
                             <constraint firstItem="ey2-06-it0" firstAttribute="top" secondItem="5wR-uK-D7f" secondAttribute="bottom" id="9WD-aD-xGj"/>
                             <constraint firstItem="rT1-tk-Ers" firstAttribute="leading" secondItem="5Rs-BB-ITQ" secondAttribute="leadingMargin" constant="10" id="9gv-k2-ig9"/>
                             <constraint firstAttribute="trailing" secondItem="5wR-uK-D7f" secondAttribute="trailing" id="BJK-OP-BC7"/>
+                            <constraint firstItem="Lzk-1V-YiK" firstAttribute="top" secondItem="N3G-Ly-qeH" secondAttribute="bottom" constant="63" id="Hrm-1h-uub"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Djb-xB-uC4" secondAttribute="trailing" id="W5P-lZ-gU8"/>
                             <constraint firstItem="Djb-xB-uC4" firstAttribute="top" secondItem="N3G-Ly-qeH" secondAttribute="bottom" constant="32" id="ZQz-qw-Syn"/>
                             <constraint firstItem="5wR-uK-D7f" firstAttribute="top" secondItem="N3G-Ly-qeH" secondAttribute="bottom" constant="101" id="Zg2-YZ-K7z"/>
@@ -291,7 +306,7 @@
         <!--Buttons Example-->
         <scene sceneID="qIG-kN-Eek">
             <objects>
-                <viewController id="oj5-L2-rYb" customClass="ReloadExampleViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="oj5-L2-rYb" customClass="ReloadExampleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uIZ-yh-xbO"/>
                         <viewControllerLayoutGuide type="bottom" id="gmQ-IP-lS2"/>
@@ -318,6 +333,9 @@
                     <navigationItem key="navigationItem" title="Buttons Example" id="Gw7-bV-UzR">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="RDA-eH-Sod">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="reloadTapped:" destination="oj5-L2-rYb" id="7Z1-Mv-WVy"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
@@ -328,7 +346,7 @@
         <!--Button Bar Example View Controller-->
         <scene sceneID="u0d-lR-XtS">
             <objects>
-                <viewController id="bYd-nb-not" customClass="ButtonBarExampleViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="bYd-nb-not" customClass="ButtonBarExampleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="reL-Bo-Rgp"/>
                         <viewControllerLayoutGuide type="bottom" id="IZj-zC-mLA"/>

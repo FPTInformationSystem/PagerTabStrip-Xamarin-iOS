@@ -106,7 +106,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 				{
 					var cellAtts = GetLayoutAttributesForItem(NSIndexPath.FromItemSection(numberOfItems - 1, 0));
 					toFrame = cellAtts.Frame;
-					toFrame.Offset(-cellAtts.Frame.Width, 0);
+					toFrame.Offset(cellAtts.Frame.Width, 0);
 				}
 			}
 			else

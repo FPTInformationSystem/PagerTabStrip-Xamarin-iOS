@@ -13,6 +13,24 @@ namespace Demo
 
 		#region PROPERTIES
 
+		private UILabel mTitleLabel = null;
+		[Outlet]
+		UIKit.UILabel titleLabel
+		{
+			get
+			{
+				if (mTitleLabel == null)
+				{
+					mTitleLabel = new UILabel();
+				}
+				return mTitleLabel;
+			}
+			set
+			{
+				mTitleLabel = value;
+			}
+		}
+
 		private UILabel mBigLabel = null;
 		public UILabel BigLabel
 		{
@@ -32,9 +50,15 @@ namespace Demo
 
 		#endregion
 
-		public ReloadExampleViewController (IntPtr handle) : base (handle)
+		#region CONSTRUCTORS
+
+		public ReloadExampleViewController(IntPtr handle) : base(handle)
 		{
 		}
+
+		#endregion
+
+		#region FUNCTIONS
 
 		public override void ViewDidLoad()
 		{
@@ -49,6 +73,24 @@ namespace Demo
 			if (pagerViewController != null)
 			{
 				updateTitle(pagerViewController as PagerTabStripViewController);
+			}
+		}
+
+		partial void closeTapped(Foundation.NSObject sender)
+		{
+			DismissViewController(true, null);
+		}
+
+		partial void reloadTapped(Foundation.NSObject sender)
+		{
+			foreach (var childViewController in ChildViewControllers)
+			{
+				var child = childViewController as PagerTabStripViewController;
+				if (child == null) continue;
+
+				child.ReloadPagerTabStripView();
+				updateTitle(child);
+				break;
 			}
 		}
 
@@ -69,5 +111,7 @@ namespace Demo
 		{
 			return UIStatusBarStyle.LightContent;
 		}
+
+		#endregion
 	}
 }

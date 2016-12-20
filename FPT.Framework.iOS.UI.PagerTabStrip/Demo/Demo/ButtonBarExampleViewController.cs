@@ -71,6 +71,21 @@ namespace Demo
 			return childViewControllers.Take(nItems).ToList();
 		}
 
+		public override void ReloadPagerTabStripView()
+		{
+			IsReload = true;
+			if ((new Random()).Next(2) == 0)
+			{
+				PagerBehaviour = PagerTabStripBehaviour.Progressive((new Random()).Next(2) == 0, (new Random()).Next(2) == 0);
+			}
+			else
+			{
+				PagerBehaviour = PagerTabStripBehaviour.Common((new Random()).Next(2) == 0);
+			}
+
+			base.ReloadPagerTabStripView();
+		}
+
 		#endregion
 
 		#region HELPERS
