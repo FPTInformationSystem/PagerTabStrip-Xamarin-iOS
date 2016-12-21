@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Homer_Simpsons.png",
+      "filename" : "a_bar.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "a_bar@2x.png",
       "scale" : "2x"
     },
     {

@@ -9,7 +9,7 @@ using FPT.Framework.iOS.UI.PagerTabStrip;
 
 namespace Demo
 {
-	public partial class BarExampleViewController : ButtonBarPagerTabStripViewController
+	public partial class BarExampleViewController : BarPagerTabStripViewController
 	{
 
 		#region PROPERTIES

@@ -113,6 +113,19 @@
     <ImageAsset Include="Simpsons.xcassets\Otto_Mann.imageset\Otto_Mann.png" />
     <ImageAsset Include="Simpsons.xcassets\default-avatar.imageset\Contents.json" />
     <ImageAsset Include="Simpsons.xcassets\default-avatar.imageset\default-avatar%402x.png" />
+    <ImageAsset Include="TabBar.xcassets\Contents.json" />
+    <ImageAsset Include="TabBar.xcassets\icon_bar.imageset\Contents.json" />
+    <ImageAsset Include="TabBar.xcassets\icon_bar.imageset\a_bar.png" />
+    <ImageAsset Include="TabBar.xcassets\icon_bar.imageset\a_bar%402x.png" />
+    <ImageAsset Include="TabBar.xcassets\icon_button.imageset\Contents.json" />
+    <ImageAsset Include="TabBar.xcassets\icon_button.imageset\a_button.png" />
+    <ImageAsset Include="TabBar.xcassets\icon_button.imageset\a_button%402x.png" />
+    <ImageAsset Include="TabBar.xcassets\icon_segmented.imageset\Contents.json" />
+    <ImageAsset Include="TabBar.xcassets\icon_segmented.imageset\a_segmented.png" />
+    <ImageAsset Include="TabBar.xcassets\icon_segmented.imageset\a_segmented%402x.png" />
+    <ImageAsset Include="TabBar.xcassets\icon_twitter.imageset\Contents.json" />
+    <ImageAsset Include="TabBar.xcassets\icon_twitter.imageset\a_twitter.png" />
+    <ImageAsset Include="TabBar.xcassets\icon_twitter.imageset\a_twitter%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

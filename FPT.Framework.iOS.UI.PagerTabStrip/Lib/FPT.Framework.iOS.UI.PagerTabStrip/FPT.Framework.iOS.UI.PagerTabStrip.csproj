@@ -78,6 +78,10 @@
     <Compile Include="Sources\Views\BarView.designer.cs">
     	<DependentUpon>BarView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sources\Controllers\BarPagerTabStripViewController.cs" />
+    <Compile Include="Sources\Controllers\BarPagerTabStripViewController.designer.cs">
+      <DependentUpon>BarPagerTabStripViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Sources\Views\ButtonCell.xib" />

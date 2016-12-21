@@ -42,7 +42,7 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 			}
 		}
 
-		public int SelectedIndex { get; set; } = 0;
+		public nint SelectedIndex { get; set; } = 0;
 
 		#endregion
 
@@ -85,13 +85,13 @@ namespace FPT.Framework.iOS.UI.PagerTabStrip
 			}
 		}
 
-		public void MoveTo(int index, bool animated)
+		public void MoveTo(nint index, bool animated)
 		{
 			SelectedIndex = index;
 			UpdateSelectedBarPosition(animated);
 		}
 
-		public void Move(int fromIndex, int toIndex, nfloat progressPercentage)
+		public void Move(nint fromIndex, nint toIndex, nfloat progressPercentage)
 		{
 			SelectedIndex = (progressPercentage > 0.5f) ? toIndex : fromIndex;
 

@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Maggie_Simpsons.png",
+      "filename" : "a_segmented.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "a_segmented@2x.png",
       "scale" : "2x"
     },
     {
